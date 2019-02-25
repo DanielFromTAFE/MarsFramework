@@ -15,14 +15,15 @@ namespace MarsFramework
     {
         [TestFixture]
         [Category("Sprint1")]
-        class Tenant : Global.Base
+        class Mars : Global.Base
         {
 
             [Test]
-            public void UserAccount()
+            public void EditProfile()
             {
                 // Creates a toggle for the given test, adds all log events under it    
-               test = extent.StartTest("Search for a Property");
+            //   test = extent.StartTest("Edit Profile");
+
 
                 // Create an class and object to call the method
                Profile obj = new Profile();
@@ -32,6 +33,8 @@ namespace MarsFramework
             [Test]
             public void CreatNewSkill()
             {
+                //Create Extent Report
+                test = extent.StartTest("Share Skills");
                 // Create Share Skills
                 ShareSkills obj = new ShareSkills();
                 obj.AddNewSkill();

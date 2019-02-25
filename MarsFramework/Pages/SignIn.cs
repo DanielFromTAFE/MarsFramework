@@ -66,7 +66,7 @@ namespace MarsFramework.Pages
             //Click on Login button
             LoginBtn.Click();
             Thread.Sleep(2000);
-
+            
             string text = Global.GlobalDefinitions.driver.FindElement(By.LinkText("Mars Logo")).Text;
 
             if (text == "MarsLogo")

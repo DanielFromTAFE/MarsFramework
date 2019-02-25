@@ -321,6 +321,18 @@ namespace MarsFramework.Pages
             }
             #endregion
 
+
+            #region Check whether New  skill created sucessfully 
+
+            string ShareSkillSucess = Global.GlobalDefinitions.driver.FindElement(By.LinkText("Manage Listings")).Text;
+
+            if (ShareSkillSucess == "Manage Listings")
+            {
+                Global.Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Shared Skill Successful");
+            }
+            else
+                Global.Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Fail, "Share Skill Unsuccessful");
+            #endregion
         }
         #endregion
     }
