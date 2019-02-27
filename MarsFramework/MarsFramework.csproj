@@ -179,6 +179,7 @@
     <Content Include="TestReports\Screenshots\Report_19-49-2018_4946.jpeg" />
     <Content Include="TestReports\Screenshots\Report_19-50-2018_5049.jpeg" />
     <Content Include="TestReports\Screenshots\Report_20-51-2018_5126.jpeg" />
+    <Content Include="Upload Files\Samplework.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

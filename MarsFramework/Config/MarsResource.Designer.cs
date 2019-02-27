@@ -70,47 +70,11 @@ namespace MarsFramework.Config {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Ranjita\Desktop\MVP Projects\MarsFramework\MarsFramework\ExcelData\TestData.xlsx.
-        /// </summary>
-        internal static string ExcelPath {
-            get {
-                return ResourceManager.GetString("ExcelPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to true.
         /// </summary>
         internal static string IsLogin {
             get {
                 return ResourceManager.GetString("IsLogin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Ranjita\Desktop\MVP Projects\MarsFramework\MarsFramework\TestReports\MarsReports.html.
-        /// </summary>
-        internal static string ReportPath {
-            get {
-                return ResourceManager.GetString("ReportPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Ranjita\Desktop\MVP Projects\MarsFramework\MarsFramework\Config\XMLFile.xml.
-        /// </summary>
-        internal static string ReportXMLPath {
-            get {
-                return ResourceManager.GetString("ReportXMLPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Ranjita\Desktop\MVP Projects\MarsFramework\MarsFramework\TestReports\Screenshots.
-        /// </summary>
-        internal static string ScreenShotPath {
-            get {
-                return ResourceManager.GetString("ScreenShotPath", resourceCulture);
             }
         }
     }

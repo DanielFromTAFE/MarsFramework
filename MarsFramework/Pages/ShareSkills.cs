@@ -10,6 +10,8 @@ using OpenQA.Selenium.Support.PageObjects;
 using MarsFramework.Global;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
+using System.IO;
+using MarsFramework.Config;
 
 namespace MarsFramework.Pages
 {
@@ -299,12 +301,17 @@ namespace MarsFramework.Pages
 
             #region Add Work Sample
             // Add Work Sample
-            // WorkSample.Click();
             Thread.Sleep(2000);
+            //Work Sample upload button path
             IWebElement upload = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='selectFile']"));
-            Thread.Sleep(2000);
-            upload.SendKeys(@"C:\Users\Ranjita\Desktop\Sample Work.docx");
-                             
+            
+            // Uploading File path
+            var GetCurrentDirectory = Directory.GetCurrentDirectory();
+            String path = GetCurrentDirectory + @"\MarsFramework\Upload Files\Samplework.txt";
+            upload.SendKeys(path);
+
+
+
 
             #endregion
 

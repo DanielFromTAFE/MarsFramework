@@ -10,18 +10,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static MarsFramework.Global.GlobalDefinitions;
-
+using System.IO;
 
 namespace MarsFramework.Global
 {
     class Base
     {
-        #region To access Path from resource file
+        #region To access Path from resource file / Dynamic paths
 
         public static int Browser = Int32.Parse(MarsResource.Browser);
-        public static String ExcelPath = MarsResource.ExcelPath;
-        public static string ScreenshotPath = MarsResource.ScreenShotPath;
-        public static string ReportPath = MarsResource.ReportPath;
+        
+        // Excel path
+        public static String ExcelPath = Directory.GetCurrentDirectory()+ @"\MarsFramework\ExcelData\TestData.xlsx";
+        
+        // Path to Save Screenshots
+        public static String ScreenshotPath = Directory.GetCurrentDirectory() + @"\MarsFramework\TestReports\Screenshots";
+
+        // Report path
+        public static String ReportPath = Directory.GetCurrentDirectory() + @"\MarsFramework\TestReports\MarsReports.html";
+
+        // Report XML path
+        public static String ReportXMLPath = Directory.GetCurrentDirectory() + @"\MarsFramework\Config\XMLFile.xml";
+
         #endregion
 
         #region reports
@@ -53,7 +63,7 @@ namespace MarsFramework.Global
             #region Initialise Reports
 
             extent = new ExtentReports(ReportPath, false, DisplayOrder.NewestFirst);
-            extent.LoadConfig(MarsResource.ReportXMLPath);
+            extent.LoadConfig(ReportXMLPath);
 
             #endregion
 
