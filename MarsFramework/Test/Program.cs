@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 using MarsFramework.Pages;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
-
+using static MarsFramework.Global.GlobalDefinitions;
+using MarsFramework.Global;
+using RelevantCodes.ExtentReports;
+using OpenQA.Selenium;
 
 namespace MarsFramework
 {
@@ -15,6 +18,7 @@ namespace MarsFramework
     {
         [TestFixture]
         [Category("Sprint1")]
+        
         class Mars : Global.Base
         {
 
@@ -39,7 +43,7 @@ namespace MarsFramework
                 ShareSkills obj = new ShareSkills();
                 obj.AddNewSkill();
             }
-           
+
         }
     }
 }

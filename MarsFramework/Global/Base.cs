@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using static MarsFramework.Global.GlobalDefinitions;
 using System.IO;
+using OpenQA.Selenium;
+using NUnit.Framework.Interfaces;
 
 namespace MarsFramework.Global
 {
@@ -19,10 +21,10 @@ namespace MarsFramework.Global
         #region To access Path from resource file / Dynamic paths
 
         public static int Browser = Int32.Parse(MarsResource.Browser);
-        
+
         // Excel path
-        public static String ExcelPath = Directory.GetCurrentDirectory()+ @"\MarsFramework\ExcelData\TestData.xlsx";
-        
+        public static String ExcelPath = Directory.GetCurrentDirectory() + @"\MarsFramework\ExcelData\TestData.xlsx";
+
         // Path to Save Screenshots
         public static String ScreenshotPath = Directory.GetCurrentDirectory() + @"\MarsFramework\TestReports\Screenshots";
 
@@ -77,22 +79,27 @@ namespace MarsFramework.Global
                 SignUp obj = new SignUp();
                 obj.register();
             }
-            
+
         }
 
 
         [TearDown]
         public void TearDown()
         {
-            // Screenshot
-            String img = SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
-            test.Log(LogStatus.Info, "Image example: " + img);
+           
+                if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
+                {
+                    // Screenshot
+                    String img = SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
+                    test.Log(LogStatus.Error, "Image example: " + img);
+                 }
+            
             // end test. (Reports)
             extent.EndTest(test);
-            // calling Flush writes everything to the log file (Reports)
-            extent.Flush();
-            // Close the driver :)            
-            GlobalDefinitions.driver.Close();
+                // calling Flush writes everything to the log file (Reports)
+                extent.Flush();
+                // Close the driver :)            
+                GlobalDefinitions.driver.Close();
         }
         #endregion
 
