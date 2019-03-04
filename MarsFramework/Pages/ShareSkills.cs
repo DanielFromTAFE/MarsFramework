@@ -13,23 +13,12 @@ using System.Threading;
 using System.IO;
 using MarsFramework.Config;
 
+
 namespace MarsFramework.Pages
 {
     class ShareSkills
     {
-        #region Strings instead of Excel
-        String category = "Graphics & Design";
-        String subcategory = "Book & Album covers";
-        String title = "Testing DatePicker";
-        String EnterDescription = "I am a Selenium Expert. Would love to share my knowledge.";
-        String TagName = "API";
-        String ServiceType = "Hourly basis service";
-        String SelectLocationType = "On-site";
-        String SelectSkillTrade = "Skill-exchange";
-        String UserStatus = "Active";
-        String SaveOrCancel = "Save";
-        #endregion
-
+    
         public ShareSkills()
         {
             OpenQA.Selenium.Support.PageObjects.PageFactory.InitElements(Global.GlobalDefinitions.driver, this);
@@ -154,19 +143,24 @@ namespace MarsFramework.Pages
             // Click on Share Skills Page
             ShareSkill.Click();
             System.Threading.Thread.Sleep(1500);
+            //Populate the excel data
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ShareSkills");
+
             #endregion
+
 
             #region Enter Title 
 
-            // Enter Title
-            Title.SendKeys(title);
+            //Enter the data in Title textbox
+            Title.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "title"));
 
             #endregion
 
             #region Enter Description
 
-            // Enter Description
-            Description.SendKeys(EnterDescription);
+            //Enter the data in Description textbox
+            Description.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "EnterDescription"));
+
 
             #endregion
 
@@ -175,22 +169,22 @@ namespace MarsFramework.Pages
             // Click on Category Dropdown
             Category.Click();
 
+
             // Select Category from Category Drop Down
             var SelectElement = new SelectElement(Category);
-            SelectElement.SelectByText(category);
-           
-
+            SelectElement.SelectByText((GlobalDefinitions.ExcelLib.ReadData(2, "category")));
+         
             // Click on Sub-Category Dropdown
             SubCategory.Click();
 
             //Select Sub-Category from the Drop Down
             var SelectElement1 = new SelectElement(SubCategory);
-            SelectElement1.SelectByText(subcategory);
+            SelectElement1.SelectByText((GlobalDefinitions.ExcelLib.ReadData(2, "subcategory")));
             #endregion
 
             #region Tags
             // Eneter Tag
-            Tag.SendKeys(TagName);
+            Tag.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2,"TagName"));
             Tag.SendKeys(Keys.Enter);
 
             #endregion
@@ -199,11 +193,11 @@ namespace MarsFramework.Pages
 
             // Service Type Selection
                      
-            if (ServiceType == "Hourly basis service")
+            if (GlobalDefinitions.ExcelLib.ReadData(2, "ServiceType") == "Hourly basis service")
             {
                 ServiceTypeHourly.Click();
             }
-            else if (ServiceType == "One-off service")
+            else if (GlobalDefinitions.ExcelLib.ReadData(2,"ServiceType") == "One-off service")
             {
                 ServiceTypeOnOff.Click();
             }
@@ -212,75 +206,40 @@ namespace MarsFramework.Pages
             #region Select Location Type
             // Location Type Selection
           
-            if (SelectLocationType == "On-site")
+            if (GlobalDefinitions.ExcelLib.ReadData(2, "SelectLocationType") == "On-site")
             {
                 LocationTypeOnsite.Click();
             }
-            else if (SelectLocationType == "Online")
+            else if (GlobalDefinitions.ExcelLib.ReadData(2, "SelectLocationType") == "Online")
             {
                 LocationTypeOnline.Click();
             }
             #endregion
 
             #region Select Available Dates from Calendar
-            #region Enable Form
-
-            /* Not working 
-            // Select Available Dates from Calendar -Enable form
-
             // Select Start Date
             StartDate.Click();
-            StartDate.SendKeys("23/02/2019");
-            StartDate.SendKeys(Keys.Enter);
-
-
             // Select End Date
             EndDate.Click();
-            EndDate.SendKeys("27/03/2019");
-            EndDate.SendKeys(Keys.Enter); */
-
             #endregion
-
-            #region Disable form 
-         /*   // Yet to Implement
-            var dateInput = GlobalDefinitions.driver.FindElement(By.Id(""));
-            var StartdateTextBox = GlobalDefinitions.driver.FindElement(By.XPath("//input[@placeholder='Start date']"));
-            
-            //StartdateTextBox.Click();
-
-             StartdateTextBox.SendKeys("22/02/2019");
-
-             var EnddateTextBox = GlobalDefinitions.driver.FindElement(By.XPath("//input[@placeholder='End date']"));
-
-             EnddateTextBox.Click();
-
-             EnddateTextBox.SendKeys("26/02/2019");
-
-            // GlobalDefinitions.driver.FindElement(By.Id("")).Click();*/
-            #endregion
-
-
-
-
-
-            #endregion
+                       
 
             #region Select Skill Trade
             // Select Skill Trade
 
-            if (SelectSkillTrade == "Skill-exchange")
+            if (GlobalDefinitions.ExcelLib.ReadData(2, "SelectSkillTrade") == "Skill-exchange")
             {
-                String ExchangeSkill = "API";
+                
                 RequiredSkills.Click();
-                RequiredSkills.SendKeys(ExchangeSkill);
+                RequiredSkills.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "ExchangeSkill"));
                 RequiredSkills.SendKeys(Keys.Enter);
 
             }
-            else if (SelectSkillTrade == "Credit")
+            else if (GlobalDefinitions.ExcelLib.ReadData(2, "SelectSkillTrade") == "Credit")
             {
-                String AmountInExchange = "10";
+                
                 CreditAmount.Click();
-                CreditAmount.SendKeys(AmountInExchange);
+                CreditAmount.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "AmountInExchange"));
                 CreditAmount.SendKeys(Keys.Enter);
             }
             #endregion
@@ -288,11 +247,11 @@ namespace MarsFramework.Pages
             #region Select User Status
             // Select User Status
             
-            if (UserStatus == "Active")
+            if (GlobalDefinitions.ExcelLib.ReadData(2, "UserStatus") == "Active")
             {
                 StatusActive.Click();
             }
-            else if (UserStatus == "Hidden")
+            else if (GlobalDefinitions.ExcelLib.ReadData(2, "UserStatus") == "Hidden")
             {
                 StatusHidden.Click();
             }
@@ -316,13 +275,13 @@ namespace MarsFramework.Pages
             #endregion
 
             #region Save / Cancel Skill
-            // Save / Cancel Skill
+            // Save or Cancel New Skill
 
-            if (SaveOrCancel == "Save")
+            if (Global.GlobalDefinitions.ExcelLib.ReadData(2, "SaveOrCancel") == "Save")
             {
                 SaveShareSkills.Click();
             }
-            else if (SaveOrCancel == "Cancel")
+            else if (Global.GlobalDefinitions.ExcelLib.ReadData(2, "SaveOrCancel") == "Cancel")
             {
                 CancelShareSkills.Click();
             }
