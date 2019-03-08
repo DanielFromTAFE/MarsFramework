@@ -12,13 +12,13 @@ using MarsFramework.Global;
 using RelevantCodes.ExtentReports;
 using OpenQA.Selenium;
 
+
 namespace MarsFramework
 {
     public class Program
     {
         [TestFixture]
         [Category("Sprint1")]
-        
         class Mars : Global.Base
         {
 
@@ -26,13 +26,13 @@ namespace MarsFramework
             public void EditProfile()
             {
                 // Creates a toggle for the given test, adds all log events under it    
-            //   test = extent.StartTest("Edit Profile");
+                //   test = extent.StartTest("Edit Profile");
 
 
                 // Create an class and object to call the method
-               Profile obj = new Profile();
-               obj.EditProfile();
-               
+                Profile obj = new Profile();
+                obj.EditProfile();
+
             }
             [Test]
             public void CreatNewSkill()

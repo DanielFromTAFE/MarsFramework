@@ -18,25 +18,28 @@ namespace MarsFramework.Pages
 {
     class ShareSkills
     {
-    
+
+
         public ShareSkills()
         {
             OpenQA.Selenium.Support.PageObjects.PageFactory.InitElements(Global.GlobalDefinitions.driver, this);
         }
 
-        #region Initialize Elements
-      /*  [FindsBy(How = How.XPath, Using = "//*[@id='account - profile - section']/div/section[1]/div/a[1]")]
-        public IWebElement Dashboard { get; set; }
 
-        [FindsBy(How = How.ClassName, Using = "item active")]
-        public IWebElement Skills { get; set; }*/
+
+        #region Initialize Elements
+        /*  [FindsBy(How = How.XPath, Using = "//*[@id='account - profile - section']/div/section[1]/div/a[1]")]
+          public IWebElement Dashboard { get; set; }
+
+          [FindsBy(How = How.ClassName, Using = "item active")]
+          public IWebElement Skills { get; set; }*/
 
 
         //[FindsBy(How = How.XPath, Using = "//*[@id='service-listing-section']/section[1]/div/div[2]/a")]
         [FindsBy(How = How.CssSelector, Using = "div.ui:nth-child(1) div:nth-child(1) section.nav-secondary:nth-child(2) div.ui.eight.item.menu div.right.item:nth-child(5) > a.ui.basic.green.button")]
         public IWebElement ShareSkill { get; set; }
 
-        
+
         // Title
         [FindsBy(How = How.Name, Using = "title")]
         public IWebElement Title { get; set; }
@@ -49,7 +52,7 @@ namespace MarsFramework.Pages
 
         // Select Category
 
-        [FindsBy(How = How.Name, Using = "categoryId")]
+        [FindsBy(How = How.CssSelector, Using = "div.ui.container:nth-child(3) div.listing form.ui.form div.tooltip-target.ui.grid:nth-child(3) div.twelve.wide.column div.fields div.five.wide.field > select.ui.fluid.dropdown")]
         public IWebElement Category { get; set; }
 
         // Select Graphics & Design
@@ -137,7 +140,7 @@ namespace MarsFramework.Pages
         #region Add new Skill
         public void AddNewSkill()
         {
-            
+
             System.Threading.Thread.Sleep(2000);
             #region Navigate to Share Skills Page
             // Click on Share Skills Page
@@ -173,7 +176,7 @@ namespace MarsFramework.Pages
             // Select Category from Category Drop Down
             var SelectElement = new SelectElement(Category);
             SelectElement.SelectByText((GlobalDefinitions.ExcelLib.ReadData(2, "category")));
-         
+
             // Click on Sub-Category Dropdown
             SubCategory.Click();
 
@@ -184,7 +187,7 @@ namespace MarsFramework.Pages
 
             #region Tags
             // Eneter Tag
-            Tag.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2,"TagName"));
+            Tag.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "TagName"));
             Tag.SendKeys(Keys.Enter);
 
             #endregion
@@ -192,12 +195,12 @@ namespace MarsFramework.Pages
             #region Service Type Selection
 
             // Service Type Selection
-                     
+
             if (GlobalDefinitions.ExcelLib.ReadData(2, "ServiceType") == "Hourly basis service")
             {
                 ServiceTypeHourly.Click();
             }
-            else if (GlobalDefinitions.ExcelLib.ReadData(2,"ServiceType") == "One-off service")
+            else if (GlobalDefinitions.ExcelLib.ReadData(2, "ServiceType") == "One-off service")
             {
                 ServiceTypeOnOff.Click();
             }
@@ -205,7 +208,7 @@ namespace MarsFramework.Pages
 
             #region Select Location Type
             // Location Type Selection
-          
+
             if (GlobalDefinitions.ExcelLib.ReadData(2, "SelectLocationType") == "On-site")
             {
                 LocationTypeOnsite.Click();
@@ -222,14 +225,14 @@ namespace MarsFramework.Pages
             // Select End Date
             EndDate.Click();
             #endregion
-                       
+
 
             #region Select Skill Trade
             // Select Skill Trade
 
             if (GlobalDefinitions.ExcelLib.ReadData(2, "SelectSkillTrade") == "Skill-exchange")
             {
-                
+
                 RequiredSkills.Click();
                 RequiredSkills.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "ExchangeSkill"));
                 RequiredSkills.SendKeys(Keys.Enter);
@@ -237,7 +240,7 @@ namespace MarsFramework.Pages
             }
             else if (GlobalDefinitions.ExcelLib.ReadData(2, "SelectSkillTrade") == "Credit")
             {
-                
+
                 CreditAmount.Click();
                 CreditAmount.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "AmountInExchange"));
                 CreditAmount.SendKeys(Keys.Enter);
@@ -246,7 +249,7 @@ namespace MarsFramework.Pages
 
             #region Select User Status
             // Select User Status
-            
+
             if (GlobalDefinitions.ExcelLib.ReadData(2, "UserStatus") == "Active")
             {
                 StatusActive.Click();
@@ -263,7 +266,7 @@ namespace MarsFramework.Pages
             Thread.Sleep(2000);
             //Work Sample upload button path
             IWebElement upload = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='selectFile']"));
-            
+
             // Uploading File path
             var GetCurrentDirectory = Directory.GetCurrentDirectory();
             String path = GetCurrentDirectory + @"\MarsFramework\Upload Files\Samplework.txt";

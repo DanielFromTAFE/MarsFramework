@@ -13,6 +13,8 @@ using static MarsFramework.Global.GlobalDefinitions;
 using System.IO;
 using OpenQA.Selenium;
 using NUnit.Framework.Interfaces;
+using static MarsFramework.Program;
+
 
 namespace MarsFramework.Global
 {
@@ -21,6 +23,7 @@ namespace MarsFramework.Global
         #region To access Path from resource file / Dynamic paths
 
         public static int Browser = Int32.Parse(MarsResource.Browser);
+
 
         // Excel path
         public static String ExcelPath = Directory.GetCurrentDirectory() + @"\MarsFramework\ExcelData\TestData.xlsx";
@@ -44,10 +47,13 @@ namespace MarsFramework.Global
 
         #region setup and tear down
         [SetUp]
+
         public void Inititalize()
         {
 
             // advisasble to read this documentation before proceeding http://extentreports.relevantcodes.com/net/
+
+
             switch (Browser)
             {
 
@@ -55,6 +61,7 @@ namespace MarsFramework.Global
                     GlobalDefinitions.driver = new FirefoxDriver();
                     GlobalDefinitions.driver.Manage().Window.Maximize();
                     break;
+
                 case 2:
                     GlobalDefinitions.driver = new ChromeDriver();
                     GlobalDefinitions.driver.Manage().Window.Maximize();
@@ -86,20 +93,20 @@ namespace MarsFramework.Global
         [TearDown]
         public void TearDown()
         {
-           
-                if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
-                {
-                    // Screenshot
-                    String img = SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
-                    test.Log(LogStatus.Error, "Image example: " + img);
-                 }
-            
+
+            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
+            {
+                // Screenshot
+                String img = SaveScreenShotClass.SaveScreenshot(GlobalDefinitions.driver, "Report");//AddScreenCapture(@"E:\Dropbox\VisualStudio\Projects\Beehive\TestReports\ScreenShots\");
+                test.Log(LogStatus.Error, "Image example: " + img);
+            }
+
             // end test. (Reports)
             extent.EndTest(test);
-                // calling Flush writes everything to the log file (Reports)
-                extent.Flush();
-                // Close the driver :)            
-                GlobalDefinitions.driver.Close();
+            // calling Flush writes everything to the log file (Reports)
+            extent.Flush();
+            // Close the driver :)            
+            GlobalDefinitions.driver.Close();
         }
         #endregion
 
