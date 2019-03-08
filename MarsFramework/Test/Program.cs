@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using MarsFramework.Pages;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using static MarsFramework.Global.GlobalDefinitions;
+using MarsFramework.Global;
+using RelevantCodes.ExtentReports;
+using OpenQA.Selenium;
 
 
 namespace MarsFramework
@@ -15,28 +19,31 @@ namespace MarsFramework
     {
         [TestFixture]
         [Category("Sprint1")]
-        class Tenant : Global.Base
+        class Mars : Global.Base
         {
 
             [Test]
-            public void UserAccount()
+            public void EditProfile()
             {
                 // Creates a toggle for the given test, adds all log events under it    
-               test = extent.StartTest("Search for a Property");
+                //   test = extent.StartTest("Edit Profile");
+
 
                 // Create an class and object to call the method
-               Profile obj = new Profile();
-               obj.EditProfile();
-               
+                Profile obj = new Profile();
+                obj.EditProfile();
+
             }
             [Test]
             public void CreatNewSkill()
             {
+                //Create Extent Report
+                test = extent.StartTest("Share Skills");
                 // Create Share Skills
                 ShareSkills obj = new ShareSkills();
                 obj.AddNewSkill();
             }
-           
+
         }
     }
 }

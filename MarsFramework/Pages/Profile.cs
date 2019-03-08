@@ -173,9 +173,8 @@ namespace MarsFramework
         internal void EditProfile()
         {
 
-            //Populate the Excel Sheet
-            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Profile");
-            Thread.Sleep(1000);
+            
+           // Thread.Sleep(1000);
 
             //Click on Edit button
             ProfileEdit.Click();

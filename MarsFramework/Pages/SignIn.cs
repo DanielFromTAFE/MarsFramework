@@ -24,17 +24,17 @@ namespace MarsFramework.Pages
         private IWebElement SignIntab { get; set; }
 
         // Finding the Email Field
-       // [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div/div[1]/form/div[1]/input")]
+        // [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div/div[1]/form/div[1]/input")]
         [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div[1]/div/div[1]/input")]
         private IWebElement Email { get; set; }
 
         //Finding the Password Field
-       // [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div/div[1]/form/div[2]/input")]
+        // [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div/div[1]/form/div[2]/input")]
         [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div[1]/div/div[2]/input")]
         private IWebElement Password { get; set; }
 
         //Finding the Login Button
-       // [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div/div[1]/form/div[4]/div")]
+        // [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div/div[1]/form/div[4]/div")]
         [FindsBy(How = How.XPath, Using = "/html/body/div[2]/div/div/div[1]/div/div[4]/button")]
         private IWebElement LoginBtn { get; set; }
 
@@ -49,15 +49,15 @@ namespace MarsFramework.Pages
             Global.GlobalDefinitions.ExcelLib.PopulateInCollection(Global.Base.ExcelPath, "SignIn");
 
             //Navigate to the Url
-            Global.GlobalDefinitions.driver.Navigate().GoToUrl(Global.GlobalDefinitions.ExcelLib.ReadData(2,"Url"));
+            Global.GlobalDefinitions.driver.Navigate().GoToUrl(Global.GlobalDefinitions.ExcelLib.ReadData(2, "Url"));
 
-            
+
             //Click on Sign In tab
             SignIntab.Click();
             Thread.Sleep(500);
 
             //Enter the data in Username textbox
-            Email.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2,"Username"));
+            Email.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "Username"));
             Thread.Sleep(500);
 
             //Enter the password 
@@ -65,17 +65,18 @@ namespace MarsFramework.Pages
 
             //Click on Login button
             LoginBtn.Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
-            string text = Global.GlobalDefinitions.driver.FindElement(By.LinkText("Mars Logo")).Text;
+            string text = Global.GlobalDefinitions.driver.FindElement(By.XPath("/html[1]/body[1]/div[1]/div[1]/div[1]/a[1]")).Text;
 
-            if (text == "MarsLogo")
+            if (text == "Mars Logo")
             {
                 Global.Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Login Successful");
             }
             else
+            {
                 Global.Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Fail, "Login Unsuccessful");
-
+            }
         }
     }
 }

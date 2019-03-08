@@ -52,8 +52,7 @@ namespace MarsFramework.Pages
 
         internal void register()
         {
-            //Populate the excel data
-            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "SignUp");
+            
             //Click on Join button
             Join.Click();
 
