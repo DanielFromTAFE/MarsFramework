@@ -57,7 +57,7 @@ namespace MarsFramework
         private IWebElement CityOpt { get; set; }
 
         //Click on Add new to add new Language
-        [FindsBy(How =How.XPath,Using = "//*[@id='account-profileEdit-section']/div/section[2]/div/div/div/form/div[3]/div/div[2]/div/table/thead/tr/th[3]/div")]
+        [FindsBy(How = How.XPath, Using = "//*[@id='account-profileEdit-section']/div/section[2]/div/div/div/form/div[3]/div/div[2]/div/table/thead/tr/th[3]/div")]
         private IWebElement AddNewLangBtn { get; set; }
 
         //Enter the Language on text box
@@ -173,12 +173,13 @@ namespace MarsFramework
         internal void EditProfile()
         {
 
-            
-           // Thread.Sleep(1000);
+            //Populate the Excel Sheet
+            GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Profile");
+            Thread.Sleep(1000);
 
             //Click on Edit button
             ProfileEdit.Click();
-            
+
             //Availability Time option
             Thread.Sleep(1500);
             Actions action = new Actions(GlobalDefinitions.driver);
@@ -186,16 +187,16 @@ namespace MarsFramework
             Thread.Sleep(1000);
             IList<IWebElement> AvailableTime = AvailabilityTimeOpt.FindElements(By.TagName("div"));
             int count = AvailableTime.Count;
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
-                if(AvailableTime[i].Text==GlobalDefinitions.ExcelLib.ReadData(2, "AvailableTime"))
+                if (AvailableTime[i].Text == GlobalDefinitions.ExcelLib.ReadData(2, "AvailableTime"))
                 {
                     AvailableTime[i].Click();
                     Base.test.Log(LogStatus.Info, "Select the available time");
 
                 }
-            }                             
-            
+            }
+
             //Availability Hours
             AvailabilityHours.Click();
             //Availability Hours option
@@ -215,9 +216,9 @@ namespace MarsFramework
             Thread.Sleep(1000);
             IList<IWebElement> LocCountry = LocationOpt.FindElements(By.TagName("div"));
             int countrycount = LocCountry.Count;
-            for(int i = 0; i < countrycount; i++)
+            for (int i = 0; i < countrycount; i++)
             {
-                if(LocCountry[i].Text == GlobalDefinitions.ExcelLib.ReadData(2,"Country"))
+                if (LocCountry[i].Text == GlobalDefinitions.ExcelLib.ReadData(2, "Country"))
                 {
                     LocCountry[i].Click();
                     Base.test.Log(LogStatus.Info, "Selected Country");
@@ -245,7 +246,7 @@ namespace MarsFramework
             AddNewLangBtn.Click();
             Thread.Sleep(1000);
             //Enter the Language
-            AddLangText.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2,"Language"));
+            AddLangText.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Language"));
 
             //Choose Lang
             ChooseLang.Click();
@@ -259,7 +260,7 @@ namespace MarsFramework
             //Click on Add New Skill Button
             AddNewSkillBtn.Click();
             //Enter the skill 
-            AddSkillText.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2,"Skill"));
+            AddSkillText.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Skill"));
 
             //Click the skill dropdown
             ChooseSkill.Click();
@@ -273,7 +274,7 @@ namespace MarsFramework
             //Add Education
             AddNewEducation.Click();
             //Enter the University
-            EnterUniversity.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2,"University"));
+            EnterUniversity.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "University"));
 
             //Choose Country
             ChooseCountry.Click();
@@ -287,7 +288,7 @@ namespace MarsFramework
             ChooseTitleOpt.Click();
 
             //Enter Degree
-            Degree.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2,"Degree"));
+            Degree.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Degree"));
 
             //Year of Graduation
             DegreeYear.Click();
@@ -302,10 +303,10 @@ namespace MarsFramework
             AddNewCerti.Click();
 
             //Enter Certificate Name
-            EnterCerti.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2,"Certificate"));
+            EnterCerti.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Certificate"));
 
             //Enter Certified from
-            CertiFrom.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2,"CertifiedFrom"));
+            CertiFrom.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "CertifiedFrom"));
 
             //Enter the Year
             CertiYear.Click();
@@ -317,7 +318,7 @@ namespace MarsFramework
 
             //-----------------------------------------------------
             //Add Description
-            Description.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2,"Description"));
+            Description.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Description"));
             Thread.Sleep(500);
             Save.Click();
             Base.test.Log(LogStatus.Info, "Added Description successfully");

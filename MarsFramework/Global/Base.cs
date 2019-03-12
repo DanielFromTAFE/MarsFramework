@@ -13,16 +13,26 @@ using static MarsFramework.Global.GlobalDefinitions;
 using System.IO;
 using OpenQA.Selenium;
 using NUnit.Framework.Interfaces;
-using static MarsFramework.Program;
 
 
 namespace MarsFramework.Global
 {
-    class Base
+    public enum BrowserType
     {
+        Firefox,
+        Chrome
+    }
+    [TestFixture]
+    public class Base
+    {
+        private BrowserType _BrowserType;
+        public Base(BrowserType browser)
+        {
+            _BrowserType = browser;
+        }
         #region To access Path from resource file / Dynamic paths
 
-        public static int Browser = Int32.Parse(MarsResource.Browser);
+       // public static int Browser = Int32.Parse(MarsResource.Browser);
 
 
         // Excel path
@@ -48,26 +58,29 @@ namespace MarsFramework.Global
         #region setup and tear down
         [SetUp]
 
-        public void Inititalize()
+        public void InititalizeTest()
         {
 
             // advisasble to read this documentation before proceeding http://extentreports.relevantcodes.com/net/
 
-
-            switch (Browser)
+           
+                ChooseBrowser(_BrowserType);
+            
+           
+            void ChooseBrowser(BrowserType browserType)
             {
-
-                case 1:
+                if (browserType == BrowserType.Firefox)
+                {
                     GlobalDefinitions.driver = new FirefoxDriver();
-                    GlobalDefinitions.driver.Manage().Window.Maximize();
-                    break;
-
-                case 2:
+                }
+                else if (browserType == BrowserType.Chrome)
+                {
                     GlobalDefinitions.driver = new ChromeDriver();
-                    GlobalDefinitions.driver.Manage().Window.Maximize();
-                    break;
-
+                }
+              
             }
+
+      
 
             #region Initialise Reports
 
@@ -106,7 +119,7 @@ namespace MarsFramework.Global
             // calling Flush writes everything to the log file (Reports)
             extent.Flush();
             // Close the driver :)            
-            GlobalDefinitions.driver.Close();
+           // GlobalDefinitions.driver.Close();
         }
         #endregion
 

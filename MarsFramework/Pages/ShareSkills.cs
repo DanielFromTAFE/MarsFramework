@@ -52,7 +52,7 @@ namespace MarsFramework.Pages
 
         // Select Category
 
-        [FindsBy(How = How.CssSelector, Using = "div.ui.container:nth-child(3) div.listing form.ui.form div.tooltip-target.ui.grid:nth-child(3) div.twelve.wide.column div.fields div.five.wide.field > select.ui.fluid.dropdown")]
+        [FindsBy(How = How.Name, Using = "categoryId")]
         public IWebElement Category { get; set; }
 
         // Select Graphics & Design

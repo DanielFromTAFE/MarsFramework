@@ -67,7 +67,7 @@ namespace MarsFramework.Pages
             LoginBtn.Click();
             Thread.Sleep(3000);
 
-            string text = Global.GlobalDefinitions.driver.FindElement(By.XPath("/html[1]/body[1]/div[1]/div[1]/div[1]/a[1]")).Text;
+            string text = Global.GlobalDefinitions.driver.FindElement(By.XPath("//a[contains(text(),'Mars Logo')]")).Text;
 
             if (text == "Mars Logo")
             {

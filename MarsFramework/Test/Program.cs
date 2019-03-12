@@ -13,37 +13,59 @@ using RelevantCodes.ExtentReports;
 using OpenQA.Selenium;
 
 
+
 namespace MarsFramework
 {
-    public class Program
+    [TestFixture]
+    [Parallelizable]
+    [Category("Sprint1")]
+    public class Program_FirefoxBrowser : Base
+
     {
-        [TestFixture]
-        [Category("Sprint1")]
-        class Mars : Global.Base
+        public Program_FirefoxBrowser() : base(BrowserType.Firefox)
         {
-
-            [Test]
-            public void EditProfile()
-            {
-                // Creates a toggle for the given test, adds all log events under it    
-                //   test = extent.StartTest("Edit Profile");
-
-
-                // Create an class and object to call the method
-                Profile obj = new Profile();
-                obj.EditProfile();
-
-            }
-            [Test]
-            public void CreatNewSkill()
-            {
-                //Create Extent Report
-                test = extent.StartTest("Share Skills");
-                // Create Share Skills
-                ShareSkills obj = new ShareSkills();
-                obj.AddNewSkill();
-            }
-
         }
+        
+        [Test]
+        public void CreatNewSkill_FirefoxBrowser()
+        {
+            
+            //Create Extent Report
+            test = extent.StartTest("Share Skills");
+            // Create Share Skills
+            ShareSkills obj = new ShareSkills();
+            obj.AddNewSkill();
+            
+        }
+
+            
+        
+
     }
+
+    [TestFixture]
+    [Parallelizable]
+    [Category("Sprint1")]
+    class Program_ChromeBrowser : Base
+
+    {
+        public Program_ChromeBrowser() : base(BrowserType.Chrome)
+        {
+        }
+
+
+        [Test]
+        public void CreatNewSkill_ChromeBrowser()
+        {
+            //Create Extent Report
+            test = extent.StartTest("Share Skills");
+            // Create Share Skills
+            ShareSkills obj1 = new ShareSkills();
+            obj1.AddNewSkill();
+        }
+
+    }
+
 }
+
+    

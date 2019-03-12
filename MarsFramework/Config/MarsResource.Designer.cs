@@ -61,15 +61,6 @@ namespace MarsFramework.Config {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.
-        /// </summary>
-        internal static string Browser {
-            get {
-                return ResourceManager.GetString("Browser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to true.
         /// </summary>
         internal static string IsLogin {
