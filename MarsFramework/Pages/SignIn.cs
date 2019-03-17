@@ -1,20 +1,17 @@
 ﻿using MarsFramework.Global;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.PageObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MarsFramework.Pages
 {
-    class SignIn
+    internal class SignIn
     {
-        public SignIn()
+        private RemoteWebDriver _driver;
+        public SignIn(RemoteWebDriver driver)
         {
-            PageFactory.InitElements(Global.GlobalDefinitions.driver, this);
+            _driver = driver;
+            PageFactory.InitElements(driver, this);
         }
 
         #region  Initialize Web Elements 
@@ -49,34 +46,27 @@ namespace MarsFramework.Pages
             Global.GlobalDefinitions.ExcelLib.PopulateInCollection(Global.Base.ExcelPath, "SignIn");
 
             //Navigate to the Url
-            Global.GlobalDefinitions.driver.Navigate().GoToUrl(Global.GlobalDefinitions.ExcelLib.ReadData(2, "Url"));
+            _driver.Navigate().GoToUrl(Global.GlobalDefinitions.ExcelLib.ReadData(2, "Url"));
 
 
             //Click on Sign In tab
             SignIntab.Click();
-            Thread.Sleep(500);
-
             //Enter the data in Username textbox
-            Email.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "Username"));
-            Thread.Sleep(500);
+            Email.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Username"));
 
             //Enter the password 
-            Password.SendKeys(Global.GlobalDefinitions.ExcelLib.ReadData(2, "Password"));
+            Password.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Password"));
 
-            //Click on Login button
+            ////Click on Login button
             LoginBtn.Click();
-            Thread.Sleep(3000);
-
-            string text = Global.GlobalDefinitions.driver.FindElement(By.XPath("/html[1]/body[1]/div[1]/div[1]/div[1]/a[1]")).Text;
-
-            if (text == "Mars Logo")
+            if (_driver.WaitForElementDisplayed(By.XPath("//a[contains(text(),'Mars Logo')]"), 60))
             {
-                Global.Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Login Successful");
-            }
-            else
+                Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Login Successful");
+            } else
             {
-                Global.Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Fail, "Login Unsuccessful");
+                Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Fail, "Login failed");
             }
+
         }
     }
 }

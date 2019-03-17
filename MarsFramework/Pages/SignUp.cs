@@ -1,5 +1,6 @@
 ﻿using MarsFramework.Global;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace MarsFramework.Pages
 {
     class SignUp
     {
-        public SignUp()
+        private RemoteWebDriver _driver;
+        public SignUp(RemoteWebDriver driver)
         {
-            PageFactory.InitElements(Global.GlobalDefinitions.driver, this);
+            _driver = driver;
+            PageFactory.InitElements(driver, this);
         }
 
         #region  Initialize Web Elements 

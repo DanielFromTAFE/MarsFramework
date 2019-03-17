@@ -1,49 +1,36 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MarsFramework.Global;
 using MarsFramework.Pages;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using static MarsFramework.Global.GlobalDefinitions;
-using MarsFramework.Global;
-using RelevantCodes.ExtentReports;
-using OpenQA.Selenium;
+using NUnit.Framework;
+
 
 
 namespace MarsFramework
 {
-    public class Program
+    [TestFixture(BrowserType.Firefox)]
+    [TestFixture(BrowserType.Chrome)]
+    [Parallelizable(ParallelScope.Fixtures)]
+    [Category("Sprint1")]
+    public class Program : Base
+
     {
-        [TestFixture]
-        [Category("Sprint1")]
-        class Mars : Global.Base
+        public Program(BrowserType browser) : base(browser)
+        {
+        }
+
+        [Test]
+        public void CreatNewSkill()
         {
 
-            [Test]
-            public void EditProfile()
-            {
-                // Creates a toggle for the given test, adds all log events under it    
-                //   test = extent.StartTest("Edit Profile");
-
-
-                // Create an class and object to call the method
-                Profile obj = new Profile();
-                obj.EditProfile();
-
-            }
-            [Test]
-            public void CreatNewSkill()
-            {
-                //Create Extent Report
-                test = extent.StartTest("Share Skills");
-                // Create Share Skills
-                ShareSkills obj = new ShareSkills();
-                obj.AddNewSkill();
-            }
+            //Create Extent Report
+            test = extent.StartTest("Share Skills");
+            // Create Share Skills      
+            ShareSkills obj = new ShareSkills(_driver);
+            obj.AddNewSkill();
 
         }
+    
+
     }
 }
+
+

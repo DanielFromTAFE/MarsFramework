@@ -1,5 +1,6 @@
 ﻿using Excel;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -8,34 +9,15 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenQA.Selenium.Chrome;
 
 namespace MarsFramework.Global
 {
-    class GlobalDefinitions
+    internal class GlobalDefinitions
     {
-        //Initialise the browser
-        public static IWebDriver driver { get; set; }
-
-        #region WaitforElement 
-
-        public static void wait(int time)
-        {
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(time);
-
-        }
-        public static IWebElement WaitForElement(IWebDriver driver, By by, int timeOutinSeconds)
-        {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOutinSeconds));
-            return (wait.Until(ExpectedConditions.ElementIsVisible(by)));
-        }
-        #endregion
-
-
         #region Excel 
         public class ExcelLib
         {
-            static List<Datacollection> dataCol = new List<Datacollection>();
+            private static List<Datacollection> dataCol = new List<Datacollection>();
 
             public class Datacollection
             {
@@ -50,11 +32,9 @@ namespace MarsFramework.Global
                 dataCol.Clear();
             }
 
-
-            private static DataTable ExcelToDataTable(string fileName, string SheetName)
+            private static async Task<DataTable> ExcelToDataTable(string fileName, string SheetName)
             {
-                // Open file and return as Stream
-                using (System.IO.FileStream stream = File.Open(fileName, FileMode.Open, FileAccess.Read))
+                using (FileStream stream = File.Open(fileName, FileMode.Open, FileAccess.Read))
                 {
                     using (IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream))
                     {
@@ -68,12 +48,18 @@ namespace MarsFramework.Global
                         // store it in data table
                         DataTable resultTable = table[SheetName];
 
-                        //excelReader.Dispose();
-                        //excelReader.Close();
+                        excelReader.Dispose();
+                        excelReader.Close();
+
                         // return
                         return resultTable;
                     }
                 }
+
+
+
+                // Open file and return as Stream
+
             }
 
             public static string ReadData(int rowNumber, string columnName)
@@ -101,10 +87,10 @@ namespace MarsFramework.Global
                 }
             }
 
-            public static void PopulateInCollection(string fileName, string SheetName)
+            public static async void PopulateInCollection(string fileName, string SheetName)
             {
                 ExcelLib.ClearData();
-                DataTable table = ExcelToDataTable(fileName, SheetName);
+                DataTable table = await ExcelToDataTable(fileName, SheetName).ConfigureAwait(false);
 
                 //Iterate through the rows and columns of the Table
                 for (int row = 1; row <= table.Rows.Count; row++)

@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium.Support;
+﻿using MarsFramework.Global;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.PageObjects;
-using MarsFramework.Global;
 using OpenQA.Selenium.Support.UI;
-using System.Threading;
+using System;
 using System.IO;
-using MarsFramework.Config;
 
 
 namespace MarsFramework.Pages
 {
-    class ShareSkills
+    internal class ShareSkills
     {
 
-
-        public ShareSkills()
+        private RemoteWebDriver _driver;
+        public ShareSkills(RemoteWebDriver driver)
         {
-            OpenQA.Selenium.Support.PageObjects.PageFactory.InitElements(Global.GlobalDefinitions.driver, this);
+            _driver = driver;
+            PageFactory.InitElements(driver, this);
         }
 
 
@@ -52,7 +46,7 @@ namespace MarsFramework.Pages
 
         // Select Category
 
-        [FindsBy(How = How.CssSelector, Using = "div.ui.container:nth-child(3) div.listing form.ui.form div.tooltip-target.ui.grid:nth-child(3) div.twelve.wide.column div.fields div.five.wide.field > select.ui.fluid.dropdown")]
+        [FindsBy(How = How.Name, Using = "categoryId")]
         public IWebElement Category { get; set; }
 
         // Select Graphics & Design
@@ -141,19 +135,18 @@ namespace MarsFramework.Pages
         public void AddNewSkill()
         {
 
-            System.Threading.Thread.Sleep(2000);
             #region Navigate to Share Skills Page
             // Click on Share Skills Page
+            ShareSkill.WaitForElementClickable(_driver, 60);
             ShareSkill.Click();
-            System.Threading.Thread.Sleep(1500);
-            //Populate the excel data
+            //Populate the excel data            
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "ShareSkills");
 
             #endregion
 
 
             #region Enter Title 
-
+            Title.WaitForElementClickable(_driver, 60);
             //Enter the data in Title textbox
             Title.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "title"));
 
@@ -262,10 +255,9 @@ namespace MarsFramework.Pages
 
 
             #region Add Work Sample
-            // Add Work Sample
-            Thread.Sleep(2000);
+
             //Work Sample upload button path
-            IWebElement upload = GlobalDefinitions.driver.FindElement(By.XPath("//*[@id='selectFile']"));
+            IWebElement upload = _driver.FindElement(By.XPath("//*[@id='selectFile']"));
 
             // Uploading File path
             var GetCurrentDirectory = Directory.GetCurrentDirectory();
@@ -293,14 +285,16 @@ namespace MarsFramework.Pages
 
             #region Check whether New  skill created sucessfully 
 
-            string ShareSkillSucess = Global.GlobalDefinitions.driver.FindElement(By.LinkText("Manage Listings")).Text;
+            string ShareSkillSucess = _driver.FindElement(By.LinkText("Manage Listings")).Text;
 
             if (ShareSkillSucess == "Manage Listings")
             {
                 Global.Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Shared Skill Successful");
             }
             else
+            {
                 Global.Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Fail, "Share Skill Unsuccessful");
+            }
             #endregion
         }
         #endregion
