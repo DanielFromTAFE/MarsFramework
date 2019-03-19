@@ -1,19 +1,14 @@
 ﻿using MarsFramework.Config;
 using MarsFramework.Pages;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Remote;
 using RelevantCodes.ExtentReports;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static MarsFramework.Global.GlobalDefinitions;
 using System.IO;
-using OpenQA.Selenium;
-using NUnit.Framework.Interfaces;
-using OpenQA.Selenium.Remote;
+using static MarsFramework.Global.GlobalDefinitions;
 
 namespace MarsFramework.Global
 {
@@ -25,7 +20,7 @@ namespace MarsFramework.Global
     [TestFixture]
     public class Base
     {
-        private BrowserType _BrowserType;
+        private readonly BrowserType _BrowserType;
         public RemoteWebDriver _driver;
         public Base(BrowserType browser)
         {
@@ -63,8 +58,8 @@ namespace MarsFramework.Global
             // advisasble to read this documentation before proceeding http://extentreports.relevantcodes.com/net/
 
             ChooseBrowser(_BrowserType);
-            
-           
+
+
             void ChooseBrowser(BrowserType browserType)
             {
                 if (browserType == BrowserType.Firefox)
@@ -75,7 +70,7 @@ namespace MarsFramework.Global
                 {
                     _driver = new ChromeDriver();
                 }
-              
+
             }
 
             #region Initialise Reports
@@ -88,12 +83,12 @@ namespace MarsFramework.Global
             if (MarsResource.IsLogin == "true")
             {
                 SignIn loginobj = new SignIn(_driver);
-                loginobj.LoginSteps();             
+                loginobj.LoginSteps();
             }
             else
             {
                 SignUp obj = new SignUp(_driver);
-                obj.register();
+                obj.Register();
             }
 
         }

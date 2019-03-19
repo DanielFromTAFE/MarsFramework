@@ -20,14 +20,14 @@ namespace MarsFramework
         [Test]
         public void CreatNewSkill()
         {
-
             //Create Extent Report
             test = extent.StartTest("Share Skills");
             // Create Share Skills      
             ShareSkills obj = new ShareSkills(_driver);
             obj.AddNewSkill();
-
         }
+
+
     
 
     }

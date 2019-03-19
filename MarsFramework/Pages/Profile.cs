@@ -15,7 +15,7 @@ namespace MarsFramework
 {
     internal class Profile
     {
-        private RemoteWebDriver _driver;
+        private readonly RemoteWebDriver _driver;
         public Profile(RemoteWebDriver driver)
         {
             _driver = driver;
@@ -178,16 +178,13 @@ namespace MarsFramework
 
             //Populate the Excel Sheet
             GlobalDefinitions.ExcelLib.PopulateInCollection(Base.ExcelPath, "Profile");
-            Thread.Sleep(1000);
 
             //Click on Edit button
             ProfileEdit.Click();
 
             //Availability Time option
-            Thread.Sleep(1500);
             Actions action = new Actions(_driver);
             action.MoveToElement(AvailabilityTime).Build().Perform();
-            Thread.Sleep(1000);
             IList<IWebElement> AvailableTime = AvailabilityTimeOpt.FindElements(By.TagName("div"));
             int count = AvailableTime.Count;
             for (int i = 0; i < count; i++)
@@ -210,13 +207,10 @@ namespace MarsFramework
             Salary.Click();
             //Choose the option from salary dropdown
             Salary.SendKeys(Keys.ArrowDown);
-            Thread.Sleep(500);
             Salary.SendKeys(Keys.Enter);
 
             //Choose Location
-            Thread.Sleep(1000);
             action.MoveToElement(Location).Build().Perform();
-            Thread.Sleep(1000);
             IList<IWebElement> LocCountry = LocationOpt.FindElements(By.TagName("div"));
             int countrycount = LocCountry.Count;
             for (int i = 0; i < countrycount; i++)
@@ -229,9 +223,7 @@ namespace MarsFramework
             }
 
             //Choose City
-            Thread.Sleep(1000);
             action.MoveToElement(City).Build().Perform();
-            Thread.Sleep(1000);
             IList<IWebElement> LocCity = CityOpt.FindElements(By.TagName("div"));
             int citycount = LocCity.Count;
             for (int i = 0; i < citycount; i++)
@@ -247,15 +239,12 @@ namespace MarsFramework
             //---------------------------------------------------------
             //Click on Add New Language button
             AddNewLangBtn.Click();
-            Thread.Sleep(1000);
             //Enter the Language
             AddLangText.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Language"));
 
             //Choose Lang
             ChooseLang.Click();
-            Thread.Sleep(1000);
             ChooseLangOpt.Click();
-            Thread.Sleep(500);
             AddLang.Click();
             Base.test.Log(LogStatus.Info, "Added Language successfully");
 
@@ -267,10 +256,8 @@ namespace MarsFramework
 
             //Click the skill dropdown
             ChooseSkill.Click();
-            Thread.Sleep(500);
             ChooseSkilllevel.Click();
             AddSkill.Click();
-            Thread.Sleep(500);
             Base.test.Log(LogStatus.Info, "Added Skills successfully");
 
             //---------------------------------------------------------
@@ -281,13 +268,11 @@ namespace MarsFramework
 
             //Choose Country
             ChooseCountry.Click();
-            Thread.Sleep(500);
             //Choose Country Level
             ChooseCountryOpt.Click();
 
             //Choose Title
             ChooseTitle.Click();
-            Thread.Sleep(500);
             ChooseTitleOpt.Click();
 
             //Enter Degree
@@ -295,10 +280,8 @@ namespace MarsFramework
 
             //Year of Graduation
             DegreeYear.Click();
-            Thread.Sleep(500);
             DegreeYearOpt.Click();
             AddEdu.Click();
-            Thread.Sleep(500);
             Base.test.Log(LogStatus.Info, "Added Education successfully");
 
             //-------------------------------------------------
@@ -313,16 +296,16 @@ namespace MarsFramework
 
             //Enter the Year
             CertiYear.Click();
-            Thread.Sleep(500);
+
             CertiYearOpt.Click();
             AddCerti.Click();
-            Thread.Sleep(500);
+   
             Base.test.Log(LogStatus.Info, "Added Certificate successfully");
 
             //-----------------------------------------------------
             //Add Description
             Description.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "Description"));
-            Thread.Sleep(500);
+    
             Save.Click();
             Base.test.Log(LogStatus.Info, "Added Description successfully");
 

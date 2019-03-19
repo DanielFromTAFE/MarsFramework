@@ -2,17 +2,12 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.PageObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarsFramework.Pages
 {
-    class SignUp
+    internal class SignUp
     {
-        private RemoteWebDriver _driver;
+        private readonly RemoteWebDriver _driver;
         public SignUp(RemoteWebDriver driver)
         {
             _driver = driver;
@@ -53,14 +48,14 @@ namespace MarsFramework.Pages
         private IWebElement JoinBtn { get; set; }
         #endregion
 
-        internal void register()
+        internal void Register()
         {
-            
+
             //Click on Join button
             Join.Click();
 
             //Enter FirstName
-            FirstName.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2,"FirstName"));
+            FirstName.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "FirstName"));
 
             //Enter LastName
             LastName.SendKeys(GlobalDefinitions.ExcelLib.ReadData(2, "LastName"));
@@ -80,7 +75,7 @@ namespace MarsFramework.Pages
             //Click on join button to Sign Up
             JoinBtn.Click();
 
-            
+
         }
     }
 }

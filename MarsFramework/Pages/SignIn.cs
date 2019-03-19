@@ -62,7 +62,8 @@ namespace MarsFramework.Pages
             if (_driver.WaitForElementDisplayed(By.XPath("//a[contains(text(),'Mars Logo')]"), 60))
             {
                 Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Pass, "Login Successful");
-            } else
+            }
+            else
             {
                 Base.test.Log(RelevantCodes.ExtentReports.LogStatus.Fail, "Login failed");
             }

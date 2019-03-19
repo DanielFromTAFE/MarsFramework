@@ -38,7 +38,6 @@ namespace MarsFramework.Pages
         [FindsBy(How = How.Name, Using = "title")]
         public IWebElement Title { get; set; }
 
-
         // Description
 
         [FindsBy(How = How.Name, Using = "description")]
